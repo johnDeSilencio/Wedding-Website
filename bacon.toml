@@ -1,0 +1,92 @@
+default_job = "check"
+
+[jobs.check]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "check",
+  "--all-targets",
+]
+need_stdout = false
+
+[jobs.clippy]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "clippy",
+  "--all-targets",
+]
+need_stdout = false
+
+[jobs.clippy-pedantic]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "clippy",
+  "--all-targets",
+  "--all",
+  "--",
+  "-W",
+  "clippy::pedantic",
+  "-W",
+  "clippy::perf",
+  "-W",
+  "clippy::nursery",
+  "-W",
+  "clippy::cargo",
+]
+need_stdout = false
+
+[jobs.test]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "test",
+]
+need_stdout = true
+
+[jobs.doc]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "doc",
+  "--no-deps",
+]
+need_stdout = false
+
+[jobs.doc-open]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "doc",
+  "--no-deps",
+  "--open",
+]
+need_stdout = false
+on_success = "back"  # so that we don't open the browser at each change
+
+[jobs.run]
+command = [
+  "cargo",
+  "--color",
+  "always",
+  "run",
+]
+need_stdout = true
+allow_warnings = true
+background = true
+
+[keybindings]
+a = "job:check"
+c = "job:clippy"
+p = "job:clippy-pedantic"
+t = "job:test"
+d = "job:doc"
+o = "job:doc-open"
+r = "job:run"
