@@ -1,0 +1,36 @@
+name: Enforce Formatting
+
+on:
+  push:
+    branches:
+      - "feature/**"
+    paths:
+      - ".github/workflows/formatting.yaml"
+      - "**.md"
+      - "**.toml"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    paths:
+      - ".github/workflows/formatting.yaml"
+      - "**.md"
+      - "**.toml"
+
+jobs:
+  build:
+    name: Checking For Formatting Violations
+    runs-on: self-hosted
+    env:
+      CARGO_INCREMENTAL: 0
+    steps:
+      - name: Skip Duplicate Actions
+        id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.1
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        name: Checkout
+        uses: actions/checkout@v4.1.1
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        run: cargo fmt --all --check
