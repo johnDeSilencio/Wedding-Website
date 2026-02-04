@@ -1,0 +1,26 @@
+name: Conventional Commit Validation
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "bugfix/**"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+
+jobs:
+  build:
+    name: Conventional Commit Validation
+    runs-on: self-hosted
+    steps:
+      - name: Skip Duplicate Actions
+        id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.1
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        uses: actions/checkout@v3
+      - if: steps.skip_check.outputs.should_skip != 'true'
+        uses: webiny/action-conventional-commits@v1.3.0
