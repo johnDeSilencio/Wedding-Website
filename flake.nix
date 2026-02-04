@@ -1,0 +1,39 @@
+{
+  description = "Flake for development environment of Regina C. Pozzi and Nicholas R. Smith's wedding website";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      rust-overlay,
+    }:
+    let
+      system = "x86_64-linux";
+      overlays = [ (import rust-overlay) ];
+      pkgs = import nixpkgs {
+        inherit system overlays;
+      };
+    in
+    with pkgs;
+    {
+      devShells.${system}.default = mkShell {
+        buildInputs = [
+          (pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
+          clang
+          openssl
+          pkg-config
+        ];
+      };
+    };
+}
