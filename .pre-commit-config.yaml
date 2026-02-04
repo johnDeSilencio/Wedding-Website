@@ -1,0 +1,20 @@
+repos:
+- repo: builtin
+  hooks:
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-executables-have-shebangs
+  - id: check-json
+  - id: check-json5
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-toml
+  - id: check-xml
+  - id: check-yaml
+  - id: detect-private-key
+  - id: end-of-file-fixer
+  - id: fix-byte-order-marker
+  - id: mixed-line-ending
+  - id: no-commit-to-branch
+    args: [--branch, main, --pattern, epic/*, --pattern, integration/*]
+  - id: trailing-whitespace
