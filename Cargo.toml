@@ -1,6 +1,15 @@
 [package]
 name = "wedding-website"
 version = "0.1.0"
+authors = ["Nicholas R. Smith <nicholasrsmith1600@gmail.com>"]
 edition = "2024"
 
 [dependencies]
+dioxus = { version = "0.7.1", features = ["fullstack", "router"] }
+
+[features]
+default = ["web"]
+# The feature that are only required for the server = ["dioxus/server"] build target should be optional and only enabled in the server = ["dioxus/server"] feature
+server = ["dioxus/server"]
+# The feature that are only required for the web = ["dioxus/web"] build target should be optional and only enabled in the web = ["dioxus/web"] feature
+web = ["dioxus/web"]
