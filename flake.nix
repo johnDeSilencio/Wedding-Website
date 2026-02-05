@@ -33,6 +33,7 @@
           clang
           openssl
           pkg-config
+          sqlite
         ];
       };
     };
