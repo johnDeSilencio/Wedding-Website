@@ -2,7 +2,7 @@
 
 [web.app]
 # HTML title tag content
-title = "wedding-website"
+title = "Nick and Regina's Wedding"
 
 # include `assets` in web platform
 [web.resource]
